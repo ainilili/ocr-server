@@ -1,0 +1,2 @@
+FILE_PATH_IS_NULL = 1
+OK = 0
