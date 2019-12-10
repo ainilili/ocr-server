@@ -2,6 +2,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 import ocr
 import resp
+import datetime
 
 data = {'result': 'im fine'}
 host = ('', 8888)
@@ -19,7 +20,13 @@ class Resquest(BaseHTTPRequestHandler):
 		print('request body', reqBody)
 		reqData = json.loads(reqBody)
 		
+		starttime = datetime.datetime.now()
 		respVo = ocr.discern(reqData['filePath'])
+		endtime = datetime.datetime.now()
+		
+		print('识别结果: ', respVo.data)
+		print('消耗始长: ', (endtime - starttime).microseconds/1000, ' ms')
+		
 		respData = {
 			"code": respVo.code,
 			"message": respVo.message,
